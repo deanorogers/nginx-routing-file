@@ -23,6 +23,19 @@ resource "aws_route53_record" "service-b" {
   records = [aws_lb.nginx-service-b-alb.dns_name]
 }
 
+resource "aws_route53_health_check" "service-a-hc" {
+  fqdn              = aws_lb.nginx-service-a-alb.dns_name
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = "2"
+  request_interval  = 10
+
+  tags = {
+    Name = "service-a health check"
+  }
+}
+
 resource "aws_route53_record" "service-a-balanced" {
   zone_id = aws_route53_zone.my_phz.id
   name    = "service.nginx.com"
@@ -37,6 +50,21 @@ resource "aws_route53_record" "service-a-balanced" {
     weight  = 50
   }
 
+  health_check_id = aws_route53_health_check.service-a-hc.id
+
+}
+
+resource "aws_route53_health_check" "service-b-hc" {
+  fqdn              = aws_lb.nginx-service-b-alb.dns_name
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = "2"
+  request_interval  = 10
+
+  tags = {
+    Name = "service-b health check"
+  }
 }
 
 resource "aws_route53_record" "service-b-balanced" {
@@ -52,6 +80,8 @@ resource "aws_route53_record" "service-b-balanced" {
   weighted_routing_policy {
     weight  = 50
   }
+
+  health_check_id = aws_route53_health_check.service-b-hc.id
 
 }
 

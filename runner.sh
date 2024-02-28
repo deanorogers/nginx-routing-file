@@ -2,7 +2,7 @@
 
 URL="http://nginx-router-alb-807846519.eu-west-1.elb.amazonaws.com/service"
 
-ITERATIONS=12
+ITERATIONS=100
 
 # Loop through the curl command and output only the HTTP response code
 for ((i = 1; i <= ITERATIONS; i++)); do
