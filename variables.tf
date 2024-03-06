@@ -27,3 +27,8 @@ variable "instance_type" {
   description = "Type for EC2 Instnace"
   default     = "t2.micro"
 }
+
+variable "secondary_region_alb_dns" {
+  type = string
+  description = "ARN of nginx-router ALB in eu-west-2"
+}

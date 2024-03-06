@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="http://nginx-router-alb-807846519.eu-west-1.elb.amazonaws.com/service"
+URL="http://nginx-router-alb-148487489.eu-west-1.elb.amazonaws.com/service"
 
 ITERATIONS=100
 

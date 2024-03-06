@@ -1,0 +1,1 @@
+secondary_region_alb_dns = "nginx-router-alb-2126152391.eu-west-2.elb.amazonaws.com"

@@ -36,21 +36,21 @@ resource "aws_route53_health_check" "service-a-hc" {
   }
 }
 
-resource "aws_route53_record" "service-a-balanced" {
+resource "aws_route53_record" "service-local" {
   zone_id = aws_route53_zone.my_phz.id
   name    = "service.nginx.com"
   type    = "CNAME"
   ttl     = 2
 
-  set_identifier = "service-a"
+  set_identifier = "service-local"
 
-  records = [aws_lb.nginx-service-a-alb.dns_name]
+  records = ["localhost"]
 
   weighted_routing_policy {
     weight  = 50
   }
 
-  health_check_id = aws_route53_health_check.service-a-hc.id
+#  health_check_id = aws_route53_health_check.service-a-hc.id
 
 }
 
@@ -67,21 +67,21 @@ resource "aws_route53_health_check" "service-b-hc" {
   }
 }
 
-resource "aws_route53_record" "service-b-balanced" {
+resource "aws_route53_record" "service-secondary-region" {
   zone_id = aws_route53_zone.my_phz.id
   name    = "service.nginx.com"
   type    = "CNAME"
   ttl     = 2
 
-  set_identifier = "service-b"
+  set_identifier = "service-secondary-region"
 
-  records = [aws_lb.nginx-service-b-alb.dns_name]
+  records = [var.secondary_region_alb_dns]
 
   weighted_routing_policy {
     weight  = 50
   }
 
-  health_check_id = aws_route53_health_check.service-b-hc.id
+#  health_check_id = aws_route53_health_check.service-b-hc.id
 
 }
 
