@@ -1,8 +1,8 @@
 #!/bin/bash
 
-URL="http://nginx-router-alb-148487489.eu-west-1.elb.amazonaws.com/service"
+URL="http://nginx-router-alb-553271072.eu-west-1.elb.amazonaws.com/service"
 
-ITERATIONS=100
+ITERATIONS=300
 
 # Loop through the curl command and output only the HTTP response code
 for ((i = 1; i <= ITERATIONS; i++)); do
@@ -13,5 +13,5 @@ for ((i = 1; i <= ITERATIONS; i++)); do
     echo "Iteration $i: HTTP Response: $HTTP_RESPONSE"
     
     # Sleep for a short interval (e.g., 1 second) before next iteration
-    sleep 1
+    sleep 0.1 
 done

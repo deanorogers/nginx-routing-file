@@ -62,7 +62,7 @@ resource "aws_lb_target_group" "nginx-router-tg-blue" {
     protocol = "HTTP"
     target_type = "ip"
     health_check {
-        path = "/"
+        path = "/status"
         port = 8080
     }
     vpc_id = aws_vpc.main.id
@@ -74,7 +74,7 @@ resource "aws_lb_target_group" "nginx-router-tg-green" {
     protocol = "HTTP"
     target_type = "ip"
     health_check {
-        path = "/"
+        path = "/status"
         port = 8080
     }
     vpc_id = aws_vpc.main.id
